@@ -1,0 +1,10 @@
+*.org
+*.bak
+*~
+*.sw?
+*.tar.bz2
+*.tar.gz
+*.patch
+*.orig
+*.rej
+tmp/
