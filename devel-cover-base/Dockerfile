@@ -1,4 +1,4 @@
-FROM pjcj/perl-5.22.0:latest
+FROM pjcj/perl-5.24.1:latest
 
 MAINTAINER Paul Johnson <paul@pjcj.net>
 
