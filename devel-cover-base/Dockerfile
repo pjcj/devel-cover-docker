@@ -8,6 +8,6 @@ RUN apt-get -y install git libssl-dev
 RUN cpan -iTf App::cpanminus
 RUN cpanm -n Sereal Digest::MD5 Template Pod::Coverage::CountParents \
              Capture::Tiny Parallel::Iterator Template Class::XSAccessor \
-             Moo namespace::clean CPAN::Releases::Latest CGI
+             Moo namespace::clean CPAN::Releases::Latest CGI JSON::MaybeXS
 RUN rm -rf ~/.cpan/build ~/.cpan/sources/authors ~/.cpanm \
            ~/.local/share/.cpan/build ~/.local/share/.cpan/sources/authors
