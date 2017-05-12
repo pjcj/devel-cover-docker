@@ -11,4 +11,4 @@ module, and this will be used in cpancover.com.
 
 On the cpancover server, check out the version of Devel::Cover you want to use
 and then follow the instructions in
-[docs/cpancover.md](https://github.com/pjcj/Devel--Cover/docs/cpancover.md).
+[docs/cpancover.md](https://github.com/pjcj/Devel--Cover/blob/master/docs/cpancover.md).
