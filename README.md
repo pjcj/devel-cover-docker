@@ -4,7 +4,10 @@ Devel::Cover Docker
 This repository contains Dockerfiles and a script to create the docker images
 for [cpancover](http://cpancover.com).
 
-To build the latest image, run ./BUILD
+To build the latest image, run `./BUILD`
+
+If you don't have permissions to push the image as user `pjcj` then edit
+`BUILD` to a user for whom you do have permissions.
 
 This command will build a docker image for running a Devel::Cover run on a
 module, and this will be used in cpancover.com.
