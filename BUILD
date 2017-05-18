@@ -100,3 +100,5 @@ fi
 # For zsh completion:
 # _%FILE%() { reply=($(%FILE% options)) }
 # compctl -K _%FILE% %FILE%
+
+# vim: ft=sh
