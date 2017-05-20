@@ -19,7 +19,8 @@ usage() {
     cat <<EOT
 $script --help
 $script --trace --verbose
-$script --user=pjcj --image=cpancover
+$script --user=pjcj --image=cpancover --no-cache
+$script --env=[prod|dev]
 EOT
     exit 0
 }
@@ -62,6 +63,25 @@ while [ $# -gt 0 ]; do
             nocache="--no-cache"
             shift
             ;;
+        -e|--env)
+            shift
+            case "$1" in
+                prod)
+                    user=pjcj
+                    image=cpancover
+                    shift
+                    ;;
+                dev)
+                    user=pjcj
+                    image=cpancover_dev
+                    shift
+                    ;;
+                *)
+                    pf "Unrecognised environment: $1"
+                    break
+                    ;;
+            esac
+            ;;
         *)
             break
             ;;
@@ -69,6 +89,7 @@ while [ $# -gt 0 ]; do
 done
 
 build() {
+    pi "Building $user/$image"
     docker build $nocache   -t "$user/perl-5.24.1"      perl-5.24.1       && \
     docker build $nocache   -t "$user/devel-cover-base" devel-cover-base  && \
     docker build --no-cache -t "$user/devel-cover-git"  devel-cover-git   && \
