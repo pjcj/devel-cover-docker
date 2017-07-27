@@ -90,7 +90,7 @@ done
 
 build() {
     pi "Building $user/$image"
-    docker build $nocache   -t "$user/perl-5.24.1"      perl-5.24.1       && \
+    docker build $nocache   -t "$user/perl-5.26.0"      perl-5.26.0       && \
     docker build $nocache   -t "$user/devel-cover-base" devel-cover-base  && \
     docker build --no-cache -t "$user/devel-cover-git"  devel-cover-git   && \
     docker build            -t "$user/$image"           cpancover         && \
