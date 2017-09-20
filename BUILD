@@ -120,8 +120,4 @@ if [[ "${BASH_SOURCE[0]}" = "$0" ]]; then
     main "$@"
 fi
 
-# For zsh completion:
-# _%FILE%() { reply=($(%FILE% options)) }
-# compctl -K _%FILE% %FILE%
-
 # vim: ft=sh
