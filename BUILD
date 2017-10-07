@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -euo pipefail
-# set -x
 # IFS=$'\n\t'
 
 script=$(basename "$0")
