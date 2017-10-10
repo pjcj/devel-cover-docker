@@ -33,6 +33,7 @@ cleanup() {
 PATH="$scrdir:$PATH"
 verbose=0
 user=pjcj
+perl="5.26.1"
 image=cpancover
 nocache=""
 
@@ -56,6 +57,10 @@ while [ $# -gt 0 ]; do
             ;;
         -i|--image)
             image="$2"
+            shift 2
+            ;;
+        -p|--perl)
+            perl="$2"
             shift 2
             ;;
         -n|--no-cache)
@@ -87,9 +92,34 @@ while [ $# -gt 0 ]; do
     esac
 done
 
+build_perl() {
+    p="perl-$perl"
+    pi "Building docker for $p"
+    f="$p.tmp"
+    cat <<EOF > "$f"
+FROM ubuntu:16.04
+
+MAINTAINER Paul Johnson <paul@pjcj.net>
+
+ENV TERM=xterm
+
+RUN apt-get update && apt-get -y install wget build-essential
+
+WORKDIR /usr/local/src
+RUN wget http://www.cpan.org/src/5.0/$p.tar.gz -O - | tar xzf -
+RUN cd $p && ./Configure -des && make install
+EOF
+
+    mkdir -p "$p"
+    mv "$f" "$p/Dockerfile"
+
+    perl -pi -e "\$_ = qq(FROM pjcj/$p:latest\\n) if \$. == 1" \
+        devel-cover-base/Dockerfile
+}
+
 build() {
     pi "Building $user/$image"
-    docker build $nocache   -t "$user/perl-5.26.1"      perl-5.26.1       && \
+    docker build $nocache   -t "$user/perl-$perl"       "perl-$perl"      && \
     docker build $nocache   -t "$user/devel-cover-base" devel-cover-base  && \
     docker build --no-cache -t "$user/devel-cover-git"  devel-cover-git   && \
     docker build            -t "$user/$image"           cpancover         && \
@@ -101,6 +131,7 @@ main() {
     ((verbose)) && pi "Running $*"
     case "${1-build}" in
         build)
+            build_perl
             build
             ;;
         options)
