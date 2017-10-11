@@ -134,7 +134,7 @@ build() {
     docker build --no-cache -t "$user/devel-cover-git"  devel-cover-git   && \
     docker build            -t "$user/$image"           cpancover         && \
     docker push "$user/$image"                                            && \
-    echo "done"
+    pi "done"
 }
 
 main() {
