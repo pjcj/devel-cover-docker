@@ -111,7 +111,13 @@ RUN cd $p && ./Configure -des && make install
 EOF
 
     mkdir -p "$p"
-    mv "$f" "$p/Dockerfile"
+    df="$p/Dockerfile"
+    if diff -q "$f" "$df"; then
+        rm "$f"
+    else
+        pi "Writing dockerfile $df"
+        mv "$f" "$df"
+    fi
 
     perl -pi -e "\$_ = qq(FROM pjcj/$p:latest\\n) if \$. == 1" \
         devel-cover-base/Dockerfile
