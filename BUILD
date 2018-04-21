@@ -145,7 +145,7 @@ main() {
             build
             ;;
         options)
-            perl -nE 'say $1 =~ s/"//gr =~ s/\s*\|\s*/\n/gr' \
+            perl -nE 'say $1 =~ s/"//gr =~ s/\s*\|\s*/\n/gr'               \
                 -E 'if /^ {8}"?([a-zA-Z0-9_ "|\\-]+)"?(?:\)|\s*\|\s*\\)$/' \
                 -E '&& $1 !~ /^_/' < "$0"
             ;;
