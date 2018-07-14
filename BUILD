@@ -144,6 +144,11 @@ main() {
             build_perl
             build
             ;;
+        devel-cover-base-shell)
+            docker run -it                            \
+                --rm=false                            \
+                "$user/devel-cover-base" /bin/bash
+            ;;
         options)
             perl -nE 'say $1 =~ s/"//gr =~ s/\s*\|\s*/\n/gr'               \
                 -E 'if /^ {8}"?([a-zA-Z0-9_ "|\\-]+)"?(?:\)|\s*\|\s*\\)$/' \
