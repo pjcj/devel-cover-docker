@@ -97,7 +97,7 @@ build_perl() {
     pi "Building docker for $p"
     f="$p.tmp"
     cat <<EOF > "$f"
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 MAINTAINER Paul Johnson <paul@pjcj.net>
 
