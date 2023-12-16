@@ -41,7 +41,6 @@ while [ $# -gt 0 ]; do
     case "$1" in
         -h|--help)
             usage
-            shift
             ;;
         -t|--trace)
             set -x
@@ -82,7 +81,6 @@ while [ $# -gt 0 ]; do
                     ;;
                 *)
                     pf "Unrecognised environment: $1"
-                    break
                     ;;
             esac
             ;;
