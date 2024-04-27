@@ -5,7 +5,9 @@ WORKDIR /usr/local/src
 # hadolint ignore=DL3008
 RUN                                                                          \
   apt-get update &&                                                          \
-  apt-get -y --no-install-recommends install git libssl-dev libz-dev &&      \
+  apt-get -y --no-install-recommends install git libssl-dev libz-dev         \
+    ca-certificates &&                                                       \
+  update-ca-certificates &&                                                  \
   rm -rf /var/lib/apt/lists/*
 
 RUN                                                                          \
