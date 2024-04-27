@@ -102,17 +102,22 @@ build_perl() {
   pi "Building docker for $p"
   local f="$p.tmp"
   cat <<EOF >"$f"
-FROM ubuntu:18.04
-
-MAINTAINER Paul Johnson <paul@pjcj.net>
+FROM ubuntu:24.04
 
 ENV TERM=xterm
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN apt-get update && apt-get -y install wget build-essential
+# hadolint ignore=DL3008
+RUN apt-get update && apt-get -y --no-install-recommends \
+  install wget build-essential \
+  && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /usr/local/src
-RUN wget http://www.cpan.org/src/5.0/$p.tar.gz -O - | tar xzf -
-RUN cd $p && ./Configure -des && make install
+RUN wget --progress=dot:giga http://www.cpan.org/src/5.0/$p.tar.gz \
+  -O - | tar xzvf - -C /usr/local/src
+WORKDIR /usr/local/src/$p
+RUN ./Configure -des && make install
+WORKDIR /
+RUN rm -rf /usr/local/src/$p
 EOF
 
   mkdir -p "$p"
