@@ -131,9 +131,9 @@ EOF
 
   local cdf=devel-cover-base/Dockerfile
   local l1="FROM pjcj/$p:latest"
-  if [[ $(head -1 $cdf) != "$l1" ]]; then
+  if [[ $(head -2 $cdf | tail -1) != "$l1" ]]; then
     pi "Updating FROM line in $cdf to $p"
-    perl -pi -e "\$_ = qq($l1\\n) if \$. == 1" $cdf
+    perl -pi -e "\$_ = qq($l1\\n) if \$. == 2" $cdf
   fi
 }
 
