@@ -5,8 +5,8 @@ for [cpancover](http://cpancover.com).
 
 To build the latest image, run `./BUILD`
 
-If you don't have permissions to push the image as user `pjcj` then edit
-`BUILD` to point to a user for whom you do have permissions.
+If you don't have permissions to push the image as user `pjcj` then use the
+`--user` option to `BUILD` to specify a user for whom you do have permissions.
 
 This command will build a docker image for running a Devel::Cover run on a
 module, and this will be used in cpancover.com.
