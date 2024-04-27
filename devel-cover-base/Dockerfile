@@ -11,8 +11,21 @@ RUN                                                                          \
   rm -rf /var/lib/apt/lists/*
 
 RUN                                                                          \
-  cpan Sereal Digest::MD5 Template Pod::Coverage::CountParents Capture::Tiny \
-    Parallel::Iterator Template Class::XSAccessor Moo namespace::clean       \
-    CPAN::Releases::Latest CGI JSON::MaybeXS CPAN::DistnameInfo B::Debug &&  \
-  rm -rf ~/.cpan/build ~/.cpan/sources/authors ~/.cpanm                      \
+  cpan -Ti \
+    B::Debug \
+    CGI \
+    CPAN::DistnameInfo \
+    CPAN::Releases::Latest \
+    Capture::Tiny \
+    Class::XSAccessor \
+    Digest::MD5 \
+    JSON::MaybeXS \
+    Moo \
+    Parallel::Iterator \
+    Pod::Coverage::CountParents \
+    Sereal \
+    Template \
+    Template \
+    namespace::clean \
+  && rm -rf ~/.cpan/build ~/.cpan/sources/authors ~/.cpanm                      \
     ~/.local/share/.cpan/build ~/.local/share/.cpan/sources/authors
