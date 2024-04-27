@@ -1,7 +1,7 @@
 #!/bin/bash
 
-set -euo pipefail
-# IFS=$'\n\t'
+set -eEuo pipefail
+shopt -s inherit_errexit
 
 script=$(basename "$0")
 scrdir=$(readlink -f "$(dirname "$0")")
@@ -98,9 +98,9 @@ while [[ $# -gt 0 ]]; do
 done
 
 build_perl() {
-  p="perl-$perl"
+  local p="perl-$perl"
   pi "Building docker for $p"
-  f="$p.tmp"
+  local f="$p.tmp"
   cat <<EOF >"$f"
 FROM ubuntu:18.04
 
@@ -116,7 +116,7 @@ RUN cd $p && ./Configure -des && make install
 EOF
 
   mkdir -p "$p"
-  df="$p/Dockerfile"
+  local df="$p/Dockerfile"
   if diff -q "$f" "$df"; then
     rm "$f"
   else
@@ -124,8 +124,8 @@ EOF
     mv "$f" "$df"
   fi
 
-  cdf=devel-cover-base/Dockerfile
-  l1="FROM pjcj/$p:latest"
+  local cdf=devel-cover-base/Dockerfile
+  local l1="FROM pjcj/$p:latest"
   if [[ $(head -1 $cdf) != "$l1" ]]; then
     pi "Updating FROM line in $cdf to $p"
     perl -pi -e "\$_ = qq($l1\\n) if \$. == 1" $cdf
@@ -170,4 +170,4 @@ if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
   main "$@"
 fi
 
-# vim: ft=sh
+# vim: ft=bash
