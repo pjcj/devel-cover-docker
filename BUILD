@@ -40,7 +40,7 @@ cleanup() {
 PATH="$scrdir:$PATH"
 verbose=0
 user=pjcj
-perl="5.28.0"
+perl="5.38.2"
 image=cpancover
 nocache=""
 
