@@ -1,5 +1,5 @@
 # hadolint ignore=DL3007
-FROM pjcj/perl-5.28.0:latest
+FROM pjcj/perl-5.38.2:latest
 
 WORKDIR /usr/local/src
 # hadolint ignore=DL3008
