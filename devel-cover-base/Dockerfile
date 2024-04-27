@@ -10,6 +10,7 @@ RUN cpan -iTf App::cpanminus
 RUN cpanm -n Sereal Digest::MD5 Template Pod::Coverage::CountParents       \
              Capture::Tiny Parallel::Iterator Template Class::XSAccessor   \
              Moo namespace::clean CPAN::Releases::Latest CGI JSON::MaybeXS \
-             CPAN::DistnameInfo B::Debug
+             CPAN::DistnameInfo B::Debug CPAN::Plugin::Sysdeps
 RUN rm -rf ~/.cpan/build ~/.cpan/sources/authors ~/.cpanm \
            ~/.local/share/.cpan/build ~/.local/share/.cpan/sources/authors
+RUN perl -MCPAN -e 'CPAN::HandleConfig->load; $CPAN::Config->{plugin_list} = [ "CPAN::Plugin::Sysdeps=apt-get,batch" ]; CPAN::HandleConfig->commit'
