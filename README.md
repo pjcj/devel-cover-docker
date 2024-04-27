@@ -1,5 +1,4 @@
-Devel::Cover Docker
-===================
+# Devel::Cover Docker
 
 This repository contains Dockerfiles and a script to create the docker images
 for [cpancover](http://cpancover.com).
@@ -14,4 +13,4 @@ module, and this will be used in cpancover.com.
 
 On the cpancover server, check out the version of Devel::Cover you want to use
 and then follow the instructions in
-[docs/cpancover.md](https://github.com/pjcj/Devel--Cover/blob/master/docs/cpancover.md).
+[docs/cpancover.md](https://github.com/pjcj/Devel--Cover/blob/main/docs/cpancover.md).
