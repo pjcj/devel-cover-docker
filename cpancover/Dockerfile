@@ -1,6 +1,5 @@
-FROM pjcj/devel-cover-git:latest
-
-MAINTAINER Paul Johnson <paul@pjcj.net>
-
-WORKDIR /usr/local/src/Devel--Cover
-ENV PATH /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:./utils
+# hadolint ignore=DL3007
+FROM pjcj/devel-cover-dc:latest
+RUN perl Makefile.PL && make t && make install && make clean && \
+  echo 6 > version.txt
+ENV PATH=/dc/utils:$PATH
