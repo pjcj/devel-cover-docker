@@ -167,6 +167,10 @@ build() {
   ((push)) && docker push "$user/$image" && pi "pushed"
   true
 }
+
+shell() {
+  local image="${1:?No image specified}"
+  docker run -it --rm=false "$user/$image" /bin/bash
 }
 
 main() {
@@ -177,9 +181,16 @@ main() {
     build
     ;;
   devel-cover-base-shell)
-    docker run -it \
-      --rm=false \
-      "$user/devel-cover-base" /bin/bash
+    shell devel-cover-base
+    ;;
+  devel-cover-dc-shell)
+    shell devel-cover-dc
+    ;;
+  cpancover-shell)
+    shell cpancover
+    ;;
+  cpancover_dev-shell)
+    shell cpancover_dev
     ;;
   options)
     perl -nE 'say $1 =~ s/"//gr =~ s/\s*\|\s*/\n/gr' \
