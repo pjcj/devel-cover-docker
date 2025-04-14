@@ -25,8 +25,8 @@ usage() {
   cat <<EOT
 $script --help
 $script --trace --verbose
-$script --user=pjcj --image=cpancover --no-cache
-$script --env=[prod|dev]
+$script --user=pjcj --image=cpancover --no-cache --src=local --nopush
+$script --env=[prod|dev] --src=my_branch
 EOT
   exit 0
 }
@@ -43,6 +43,8 @@ user=pjcj
 perl="5.40.1"
 image=cpancover
 nocache=""
+src=main
+push=1
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -73,17 +75,25 @@ while [[ $# -gt 0 ]]; do
     nocache="--no-cache"
     shift
     ;;
+  -s | --src)
+    src="$2"
+    shift 2
+    ;;
+  --nopush)
+    push=0
+    shift
+    ;;
   -e | --env)
     shift
     case "$1" in
     prod)
-      user=pjcj
       image=cpancover
       shift
       ;;
     dev)
-      user=pjcj
       image=cpancover_dev
+      src=~/g/perl/Devel--Cover
+      push=0
       shift
       ;;
     *)
