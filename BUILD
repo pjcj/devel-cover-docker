@@ -149,12 +149,24 @@ EOF
 
 build() {
   pi "Building $user/$image"
-  docker build $nocache -t "$user/perl-$perl" "perl-$perl" &&
-    docker build $nocache -t "$user/devel-cover-base" devel-cover-base &&
-    docker build --no-cache -t "$user/devel-cover-git" devel-cover-git &&
-    docker build -t "$user/$image" cpancover &&
-    docker push "$user/$image" &&
-    pi "done"
+  local env=prod
+  [[ $src == /* ]] && env=dev
+  docker build $nocache -t "$user/perl-$perl" "perl-$perl"
+  docker build $nocache -t "$user/devel-cover-base" devel-cover-base
+  if [[ $env == dev ]]; then
+    local dir=devel-cover-local/src
+    rm -rf $dir
+    cp -r "$src" $dir
+    docker build --no-cache -t "$user/devel-cover-dc" devel-cover-local
+    rm -rf $dir
+  else
+    docker build --no-cache --build-arg BRANCH="$src" \
+      -t "$user/devel-cover-dc" devel-cover-git
+  fi
+  docker build -t "$user/$image" cpancover && pi "built"
+  ((push)) && docker push "$user/$image" && pi "pushed"
+  true
+}
 }
 
 main() {
